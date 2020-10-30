@@ -4,10 +4,10 @@ Complete Skeleton API built with Laravel framework, TymonJWT, etc.
 
 ## Built With
 
-- [Laravel](https://laravel.com/)
+- [Laravel](https://laravel.com/docs/7.x)
 - [Spatie Activity Log](https://github.com/spatie/laravel-activitylog)
 - [Spatie Laravel Permission](https://github.com/spatie/laravel-permission)
-- [Tymon jwt-auth](http://jwt-auth.readthedocs.io/en/docs/)
+- [Laravel Sanctum](https://laravel.com/docs/7.x/sanctum)
 
 ## Installation
 
@@ -26,11 +26,6 @@ cp .env.example .env
 To generate Laravel app key:
 ``` bash
 php artisan key:generate
-```
-
-To generate JWT secret key:
-``` bash
-php artisan jwt:secret
 ```
 
 And to finish, create database structure:
