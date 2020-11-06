@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         JsonResource::withoutWrapping();
+
+        Request::macro('inputOr', function (string $input, $value) {
+            return $this->input($input) ?? $value;
+        });
 
         Response::macro('withResource', function (string $resource) {
             $serializer = null;

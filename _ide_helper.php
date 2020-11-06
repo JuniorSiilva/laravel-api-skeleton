@@ -1517,20 +1517,14 @@
      * 
      *
      * @method static \Illuminate\Contracts\Auth\Authenticatable loginUsingId(mixed $id, bool $remember = false)
-     * @method static \Illuminate\Contracts\Auth\Authenticatable|null user()
      * @method static \Symfony\Component\HttpFoundation\Response|null onceBasic(string $field = 'email',array $extraConditions = [])
      * @method static bool attempt(array $credentials = [], bool $remember = false)
-     * @method static bool check()
-     * @method static bool guest()
      * @method static bool once(array $credentials = [])
      * @method static bool onceUsingId(mixed $id)
-     * @method static bool validate(array $credentials = [])
      * @method static bool viaRemember()
      * @method static bool|null logoutOtherDevices(string $password, string $attribute = 'password')
-     * @method static int|string|null id()
      * @method static void login(\Illuminate\Contracts\Auth\Authenticatable $user, bool $remember = false)
      * @method static void logout()
-     * @method static void setUser(\Illuminate\Contracts\Auth\Authenticatable $user)
      * @see \Illuminate\Auth\AuthManager
      * @see \Illuminate\Contracts\Auth\Factory
      * @see \Illuminate\Contracts\Auth\Guard
@@ -1706,6 +1700,168 @@
         {
                         /** @var \Illuminate\Auth\AuthManager $instance */
                         return $instance->getDefaultUserProvider();
+        }
+                    /**
+         * Get the currently authenticated user.
+         *
+         * @return \App\Models\User|null 
+         * @static 
+         */ 
+        public static function user()
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->user();
+        }
+                    /**
+         * Validate a user's credentials.
+         *
+         * @param array $credentials
+         * @return bool 
+         * @static 
+         */ 
+        public static function validate($credentials = [])
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->validate($credentials);
+        }
+                    /**
+         * Set the current request instance.
+         *
+         * @param \Illuminate\Http\Request $request
+         * @return \Illuminate\Auth\RequestGuard 
+         * @static 
+         */ 
+        public static function setRequest($request)
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->setRequest($request);
+        }
+                    /**
+         * Determine if current user is authenticated. If not, throw an exception.
+         *
+         * @return \App\Models\User 
+         * @throws \Illuminate\Auth\AuthenticationException
+         * @static 
+         */ 
+        public static function authenticate()
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->authenticate();
+        }
+                    /**
+         * Determine if the guard has a user instance.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasUser()
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->hasUser();
+        }
+                    /**
+         * Determine if the current user is authenticated.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function check()
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->check();
+        }
+                    /**
+         * Determine if the current user is a guest.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function guest()
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->guest();
+        }
+                    /**
+         * Get the ID for the currently authenticated user.
+         *
+         * @return int|string|null 
+         * @static 
+         */ 
+        public static function id()
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->id();
+        }
+                    /**
+         * Set the current user.
+         *
+         * @param \Illuminate\Contracts\Auth\Authenticatable $user
+         * @return \Illuminate\Auth\RequestGuard 
+         * @static 
+         */ 
+        public static function setUser($user)
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->setUser($user);
+        }
+                    /**
+         * Get the user provider used by the guard.
+         *
+         * @return \Illuminate\Contracts\Auth\UserProvider 
+         * @static 
+         */ 
+        public static function getProvider()
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        return $instance->getProvider();
+        }
+                    /**
+         * Set the user provider used by the guard.
+         *
+         * @param \Illuminate\Contracts\Auth\UserProvider $provider
+         * @return void 
+         * @static 
+         */ 
+        public static function setProvider($provider)
+        {
+                        /** @var \Illuminate\Auth\RequestGuard $instance */
+                        $instance->setProvider($provider);
+        }
+                    /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+                        \Illuminate\Auth\RequestGuard::macro($name, $macro);
+        }
+                    /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @param bool $replace
+         * @return void 
+         * @throws \ReflectionException
+         * @static 
+         */ 
+        public static function mixin($mixin, $replace = true)
+        {
+                        \Illuminate\Auth\RequestGuard::mixin($mixin, $replace);
+        }
+                    /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+                        return \Illuminate\Auth\RequestGuard::hasMacro($name);
         }
          
     }
@@ -3402,6 +3558,102 @@
         public static function hasMacro($name)
         {
                         return \Illuminate\Cookie\CookieJar::hasMacro($name);
+        }
+         
+    }
+            /**
+     * 
+     *
+     * @see \Illuminate\Encryption\Encrypter
+     */ 
+        class Crypt {
+                    /**
+         * Determine if the given key and cipher combination is valid.
+         *
+         * @param string $key
+         * @param string $cipher
+         * @return bool 
+         * @static 
+         */ 
+        public static function supported($key, $cipher)
+        {
+                        return \Illuminate\Encryption\Encrypter::supported($key, $cipher);
+        }
+                    /**
+         * Create a new encryption key for the given cipher.
+         *
+         * @param string $cipher
+         * @return string 
+         * @static 
+         */ 
+        public static function generateKey($cipher)
+        {
+                        return \Illuminate\Encryption\Encrypter::generateKey($cipher);
+        }
+                    /**
+         * Encrypt the given value.
+         *
+         * @param mixed $value
+         * @param bool $serialize
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\EncryptException
+         * @static 
+         */ 
+        public static function encrypt($value, $serialize = true)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->encrypt($value, $serialize);
+        }
+                    /**
+         * Encrypt a string without serialization.
+         *
+         * @param string $value
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\EncryptException
+         * @static 
+         */ 
+        public static function encryptString($value)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->encryptString($value);
+        }
+                    /**
+         * Decrypt the given value.
+         *
+         * @param string $payload
+         * @param bool $unserialize
+         * @return mixed 
+         * @throws \Illuminate\Contracts\Encryption\DecryptException
+         * @static 
+         */ 
+        public static function decrypt($payload, $unserialize = true)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->decrypt($payload, $unserialize);
+        }
+                    /**
+         * Decrypt the given string without unserialization.
+         *
+         * @param string $payload
+         * @return string 
+         * @throws \Illuminate\Contracts\Encryption\DecryptException
+         * @static 
+         */ 
+        public static function decryptString($payload)
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->decryptString($payload);
+        }
+                    /**
+         * Get the encryption key.
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getKey()
+        {
+                        /** @var \Illuminate\Encryption\Encrypter $instance */
+                        return $instance->getKey();
         }
          
     }
@@ -9521,6 +9773,17 @@
         {
                         return \Illuminate\Http\Request::hasValidSignature($absolute);
         }
+                    /**
+         * 
+         *
+         * @param string $input
+         * @param mixed $value
+         * @static 
+         */ 
+        public static function inputOr($input, $value)
+        {
+                        return \Illuminate\Http\Request::inputOr($input, $value);
+        }
          
     }
             /**
@@ -14368,6 +14631,34 @@
         {
                         return \Illuminate\Http\Request::hasValidSignature($absolute);
         }
+                    /**
+         * 
+         *
+         * @param string $input
+         * @param mixed $value
+         * @static 
+         */ 
+        public static function inputOr($input, $value)
+        {
+                        return \Illuminate\Http\Request::inputOr($input, $value);
+        }
+         
+    }
+            /**
+     * 
+     *
+     */ 
+        class Response {
+                    /**
+         * 
+         *
+         * @param string $resource
+         * @static 
+         */ 
+        public static function withResource($resource)
+        {
+                        return \Illuminate\Http\Response::withResource($resource);
+        }
          
     }
      
@@ -14415,6 +14706,7 @@ namespace  {
             class Cache extends \Illuminate\Support\Facades\Cache {}
             class Config extends \Illuminate\Support\Facades\Config {}
             class Cookie extends \Illuminate\Support\Facades\Cookie {}
+            class Crypt extends \Illuminate\Support\Facades\Crypt {}
             class DB extends \Illuminate\Support\Facades\DB {}
             class Eloquent extends \Illuminate\Database\Eloquent\Model {             
                 /**

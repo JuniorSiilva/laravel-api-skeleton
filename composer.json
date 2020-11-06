@@ -71,6 +71,10 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate"
+        ],
         "check-style": "./vendor/bin/php-cs-fixer fix --diff --verbose --dry-run .",
         "fix-style": "./vendor/bin/php-cs-fixer fix ."
     }

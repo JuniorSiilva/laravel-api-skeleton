@@ -25,3 +25,18 @@ Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
 
     Route::get('/profile', ['as' => 'profile', 'uses' => 'UserController@profile'])->middleware('auth:sanctum');
 });
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['prefix' => 'cards', 'as' => 'cards.'], function () {
+        Route::get('/', ['as' => 'get', 'uses' => 'CardController@get']);
+        Route::post('/', ['as' => 'create', 'uses' => 'CardController@create']);
+        Route::get('/{id}', ['as' => 'find', 'uses' => 'CardController@find', 'middleware' => 'exists:cards|id|id|deleted_at']);
+    });
+
+    Route::group(['prefix' => 'debtors', 'as' => 'debtors.'], function () {
+        Route::get('/', ['as' => 'get', 'uses' => 'DebtorController@get']);
+        Route::post('/', ['as' => 'create', 'uses' => 'DebtorController@create']);
+        Route::put('/{id}', ['as' => 'update', 'uses' => 'DebtorController@update', 'middleware' => 'exists:debtors|id|id|deleted_at']);
+        Route::get('/{id}', ['as' => 'find', 'uses' => 'DebtorController@find', 'middleware' => 'exists:debtors|id|id|deleted_at']);
+    });
+});
