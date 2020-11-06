@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Collection;
@@ -34,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
                 $serializer = $resource::collection($this->original);
             }
 
-            $response = $serializer->response();
+            $response = $serializer ? $serializer->response() : new JsonResponse($this->original);
 
             $response->setStatusCode($this->getStatusCode());
 

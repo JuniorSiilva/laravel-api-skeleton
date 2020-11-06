@@ -17,10 +17,11 @@ class CreateDebtsTable extends Migration
         Schema::create('debts', function (Blueprint $table) {
             $table->id();
             $table->string('description', 100);
-            $table->enum('status', DebtStatus::getKeys())->default(DebtStatus::PENDENTE);
             $table->decimal('price', 20, 2);
             $table->date('buy_date');
             $table->date('payment_start_date');
+            $table->integer('installments')->default(1);
+            $table->enum('status', DebtStatus::getKeys())->default(DebtStatus::PENDENTE);
             $table->unsignedBigInteger('card_id')->nullable();
             $table->unsignedBigInteger('owner_id');
             $table->timestamps();

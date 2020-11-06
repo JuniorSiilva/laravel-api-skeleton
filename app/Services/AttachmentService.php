@@ -12,15 +12,9 @@ use Illuminate\Http\UploadedFile;
 use App\Enums\AttachmentExtension;
 use App\Models\Contracts\Attachmentable;
 use App\Services\Contracts\AttachmentServiceContract;
-use App\Repositories\Contracts\AttachmentRepositoryContract;
 
 class AttachmentService extends Service implements AttachmentServiceContract
 {
-    /**
-     * @var \App\Repositories\AttachmentRepository
-     */
-    protected $attachmentRepository = AttachmentRepositoryContract::class;
-
     public function create(Attachmentable $model, UploadedFile $file, string $description = '') : int
     {
         $attachment = new Attachment;

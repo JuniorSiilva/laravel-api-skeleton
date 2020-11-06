@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Response;
+use App\Http\Requests\ListDebts;
 use App\Http\Requests\CreateDebt;
 use App\Http\Resources\DebtResource;
-use App\Http\Requests\DefaultListRequest;
 use App\Services\Contracts\DebtServiceContract;
 use App\Repositories\Contracts\DebtRepositoryContract;
 
@@ -21,12 +21,15 @@ class DebtController extends Controller
      */
     protected $debtService = DebtServiceContract::class;
 
-    public function get(DefaultListRequest $request)
+    public function get(ListDebts $request)
     {
         $search = $request->inputOr('search', '');
+        $from = $request->inputOr('from', '');
+        $to = $request->inputOr('to', '');
+        $debtors = $request->inputOr('debtors', []);
         $take = $request->inputOr('take', 10);
 
-        $debts = $this->debtRepository->getAll(true, $take, $search);
+        $debts = $this->debtRepository->getAll(true, $take, $search, $from, $to, $debtors);
 
         return response($debts)->withResource(DebtResource::class);
     }

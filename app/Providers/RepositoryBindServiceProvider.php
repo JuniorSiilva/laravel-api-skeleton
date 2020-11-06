@@ -6,11 +6,13 @@ use App\Repositories\CardRepository;
 use App\Repositories\DebtRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\DebtorRepository;
+use App\Repositories\PaymentRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Contracts\CardRepositoryContract;
 use App\Repositories\Contracts\DebtRepositoryContract;
 use App\Repositories\Contracts\UserRepositoryContract;
 use App\Repositories\Contracts\DebtorRepositoryContract;
+use App\Repositories\Contracts\PaymentRepositoryContract;
 
 class RepositoryBindServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,7 @@ class RepositoryBindServiceProvider extends ServiceProvider
         CardRepositoryContract::class => CardRepository::class,
         DebtorRepositoryContract::class => DebtorRepository::class,
         DebtRepositoryContract::class => DebtRepository::class,
+        PaymentRepositoryContract::class => PaymentRepository::class,
     ];
 
     /**

@@ -21,7 +21,7 @@ class CreateAttachmentsTable extends Migration
             $table->string('name', 255);
             $table->enum('type', AttachmentType::getKeys());
             $table->string('url', 255);
-            $table->string('descriptions', 255)->nullable();
+            $table->string('description', 255)->nullable();
 
             $table->unsignedBigInteger('owner_id');
             $table->timestamps();

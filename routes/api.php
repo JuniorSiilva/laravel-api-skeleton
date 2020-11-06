@@ -26,6 +26,7 @@ Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
     Route::get('/profile', ['as' => 'profile', 'uses' => 'UserController@profile'])->middleware('auth:sanctum');
 });
 
+//TODO: Analisar como o middleware "exists" vai funcionar para aplicar o scope gloal do filtro do owner
 Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'cards', 'as' => 'cards.'], function () {
         Route::get('/', ['as' => 'get', 'uses' => 'CardController@get']);
@@ -44,5 +45,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', ['as' => 'get', 'uses' => 'DebtController@get']);
         Route::post('/', ['as' => 'create', 'uses' => 'DebtController@create']);
         Route::get('/{id}', ['as' => 'find', 'uses' => 'DebtController@find', 'middleware' => 'exists:debts|id|id|deleted_at']);
+    });
+
+    Route::group(['prefix' => 'payments', 'as' => 'payments.'], function () {
+        Route::get('/', ['as' => 'get', 'uses' => 'PaymentController@get']);
+        Route::get('/{id}', ['as' => 'find', 'uses' => 'PaymentController@find', 'middleware' => 'exists:payments|id|id|deleted_at']);
     });
 });
