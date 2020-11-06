@@ -20,8 +20,10 @@ class PaymentController extends Controller
         $from = $request->inputOr('from', '');
         $to = $request->inputOr('to', '');
         $take = $request->inputOr('take', 10);
+        $debtors = $request->inputOr('debtors', []);
+        $status = $request->inputOr('status', []);
 
-        $payments = $this->paymentRepository->getAll(true, $take, $search, $from, $to, $debt);
+        $payments = $this->paymentRepository->getAll(true, $take, $search, $from, $to, $debt, $debtors, $status);
 
         return response($payments)->withResource(PaymentResource::class);
     }

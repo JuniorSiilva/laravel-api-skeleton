@@ -21,6 +21,8 @@ class Debt extends Model implements Attachmentable
 
     protected $casts = [
         'price' => 'double',
+        'payment_start_date' => 'date',
+        'buy_date' => 'date',
     ];
 
     public function getInstallments()

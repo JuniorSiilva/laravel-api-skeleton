@@ -21,6 +21,7 @@ class Payment extends Model
 
     protected $casts = [
         'price' => 'double',
+        'payment_date' => 'date',
     ];
 
     public function isPaid()
