@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\AuthService;
 use App\Services\CardService;
+use App\Services\DebtService;
 use App\Services\UserService;
 use App\Services\DebtorService;
 use App\Services\ForgotPasswordService;
@@ -11,6 +12,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Services\VerificationUserService;
 use App\Services\Contracts\AuthServiceContract;
 use App\Services\Contracts\CardServiceContract;
+use App\Services\Contracts\DebtServiceContract;
 use App\Services\Contracts\UserServiceContract;
 use App\Services\Contracts\DebtorServiceContract;
 use App\Services\Contracts\ForgotPasswordContract;
@@ -25,6 +27,7 @@ class ServicesBindServiceProvider extends ServiceProvider
         ForgotPasswordContract::class => ForgotPasswordService::class,
         CardServiceContract::class => CardService::class,
         DebtorServiceContract::class => DebtorService::class,
+        DebtServiceContract::class => DebtService::class,
     ];
 
     /**

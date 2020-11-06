@@ -39,4 +39,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{id}', ['as' => 'update', 'uses' => 'DebtorController@update', 'middleware' => 'exists:debtors|id|id|deleted_at']);
         Route::get('/{id}', ['as' => 'find', 'uses' => 'DebtorController@find', 'middleware' => 'exists:debtors|id|id|deleted_at']);
     });
+
+    Route::group(['prefix' => 'debts', 'as' => 'debts.'], function () {
+        Route::get('/', ['as' => 'get', 'uses' => 'DebtController@get']);
+        Route::post('/', ['as' => 'create', 'uses' => 'DebtController@create']);
+        Route::get('/{id}', ['as' => 'find', 'uses' => 'DebtController@find', 'middleware' => 'exists:debts|id|id|deleted_at']);
+    });
 });

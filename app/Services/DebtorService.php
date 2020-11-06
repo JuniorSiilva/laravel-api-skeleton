@@ -15,20 +15,24 @@ class DebtorService extends Service implements DebtorServiceContract
 
     public function create(array $data) : int
     {
-        return $this->save(new Debtor, $data);
+        $debtor = $this->save(new Debtor, $data);
+
+        return $debtor->getKey();
     }
 
     public function update(array $data, $id) : int
     {
-        return $this->save($this->debtorRepository->findById($id, false), $data);
+        $debtor = $this->save($this->debtorRepository->findById($id, false), $data);
+
+        return $debtor->getKey();
     }
 
-    protected function save(Debtor $debtor, array $data) : int
+    protected function save(Debtor $debtor, array $data) : Debtor
     {
         $debtor->fill($data);
 
         $debtor->save();
 
-        return $debtor->getKey();
+        return $debtor;
     }
 }

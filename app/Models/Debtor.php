@@ -12,7 +12,7 @@ class Debtor extends Model
         'name', 'email', 'phones',
     ];
 
-    protected $cast = [
+    protected $casts = [
         'phones' => 'array',
     ];
 }

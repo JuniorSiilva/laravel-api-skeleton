@@ -15,20 +15,24 @@ class CardService extends Service implements CardServiceContract
 
     public function create(array $data) : int
     {
-        return $this->save(new Card, $data);
+        $card = $this->save(new Card, $data);
+
+        return $card->getKey();
     }
 
     public function update(array $data, $id) : int
     {
-        return $this->save($this->cardRepository->findById($id, false), $data);
+        $card = $this->save($this->cardRepository->findById($id, false), $data);
+
+        return $card->getKey();
     }
 
-    protected function save(Card $card, array $data) : int
+    protected function save(Card $card, array $data) : Card
     {
         $card->fill($data);
 
         $card->save();
 
-        return $card->getKey();
+        return $card;
     }
 }

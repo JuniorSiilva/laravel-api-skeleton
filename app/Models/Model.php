@@ -17,4 +17,9 @@ abstract class Model extends Eloquent
     protected static $logAttributes = ['*'];
 
     protected static $logOnlyDirty = true;
+
+    public function getClass(): string
+    {
+        return __CLASS__;
+    }
 }
