@@ -15,4 +15,19 @@ class Debtor extends Model
     protected $casts = [
         'phones' => 'array',
     ];
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

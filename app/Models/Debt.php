@@ -30,6 +30,11 @@ class Debt extends Model implements Attachmentable
         return $this->installments;
     }
 
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
     public function getStartDate()
     {
         return $this->payment_start_date;

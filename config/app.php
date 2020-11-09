@@ -106,7 +106,7 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => env('APP_LOCALE', 'en_US'),
 
     /*
     |--------------------------------------------------------------------------
@@ -171,7 +171,6 @@ return [
         App\Providers\ServicesBindServiceProvider::class,
         App\Providers\RepositoryBindServiceProvider::class,
         App\Providers\ObserverProvider::class,
-        App\Providers\FakerServiceProvider::class,
     ],
 
     /*
@@ -220,7 +219,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

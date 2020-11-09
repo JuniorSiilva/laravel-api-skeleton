@@ -38,4 +38,21 @@ class PaymentRepository extends Repository implements PaymentRepositoryContract
 
         return $query->get();
     }
+
+    public function getFromYearMonthAndDebtor(int $debtorId, string $year, string $month)
+    {
+        $query = $this->getQuery();
+
+        $query->orderByRaw('status = \'' . PaymentStatus::PENDENTE . '\' DESC');
+
+        $query->orderBy('payment_date', 'ASC');
+
+        $query->whereMonth('payment_date', $month)
+            ->whereYear('payment_date', $year)
+            ->where('debtor_id', $debtorId);
+
+        $query->with('debt');
+
+        return $query->get();
+    }
 }

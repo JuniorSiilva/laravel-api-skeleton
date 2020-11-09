@@ -52,4 +52,15 @@ class DebtorController extends Controller
 
         return response(['id' => $debtorId]);
     }
+
+    public function payments(int $debtorId, string $year, string $month)
+    {
+        $pdfFile = $this->debtorService->generatePaymentsPdf($debtorId, $year, $month);
+
+        if (! $pdfFile) {
+            return response(false, Response::HTTP_NO_CONTENT);
+        }
+
+        return $pdfFile->download("{$month}_{$year}.pdf");
+    }
 }

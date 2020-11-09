@@ -34,6 +34,25 @@ class Payment extends Model
         $this->status = $status;
     }
 
+    public function getInstallment()
+    {
+        return $this->installment;
+    }
+
+    public function getDebt()
+    {
+        return $this->debt;
+    }
+
+    public function getPrice(bool $format = false)
+    {
+        if ($format) {
+            return number_format($this->price, 2, ',', '.');
+        }
+
+        return $this->price;
+    }
+
     public function setReceiptDate(?string $date)
     {
         $this->receipt_date = $date;
