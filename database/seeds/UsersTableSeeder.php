@@ -25,6 +25,12 @@ class UsersTableSeeder extends Seeder
             for ($i = 0; $i < $cardsCount; $i++) {
                 DB::table('cards')->insert(['digits' => rand(1000, 9999), 'brand' => CardBrand::getKeys()[rand(0, 5)], 'owner_id' => $user->getKey()]);
             }
+
+            $tagsCount = 10;
+
+            for ($i = 0; $i < $tagsCount; $i++) {
+                DB::table('tags')->insert(['name' => "Tag $i", 'owner_id' => $user->getKey()]);
+            }
         });
     }
 }

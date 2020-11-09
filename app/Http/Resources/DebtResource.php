@@ -26,6 +26,7 @@ class DebtResource extends JsonResource
             'card' => new CardResource($this->whenLoaded('card')),
             'debtors' => DebtorResource::collection($this->whenLoaded('debtors')),
             'attachments' => AttachmentResource::collection($this->whenLoaded('attachments')),
+            'tags' => TagResource::collection($this->whenLoaded('tags')),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,

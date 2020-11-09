@@ -4,13 +4,14 @@ namespace App\Repositories;
 
 use App\Models\Payment;
 use App\Enums\PaymentStatus;
+use Illuminate\Database\Eloquent\Builder;
 use App\Repositories\Contracts\PaymentRepositoryContract;
 
 class PaymentRepository extends Repository implements PaymentRepositoryContract
 {
     protected $model = Payment::class;
 
-    public function getAll(bool $paginate = false, int $take = 15, string $search = '', string $from = '', string $to = '', ?int $debtId = null, array $debtors = [], array $status = [])
+    public function getAll(bool $paginate = false, int $take = 15, string $search = '', string $from = '', string $to = '', ?int $debtId = null, array $debtors = [], array $status = [], array $tags = [])
     {
         $query = $this->getQuery();
 
@@ -26,6 +27,12 @@ class PaymentRepository extends Repository implements PaymentRepositoryContract
 
         if (! empty($status)) {
             $query->whereIn('status', $status);
+        }
+
+        if ($tags) {
+            $query->whereHas('debtors.tags', function (Builder $query) use ($tags) {
+                $query->whereIn('id', $tags);
+            });
         }
 
         if ($debtId) {

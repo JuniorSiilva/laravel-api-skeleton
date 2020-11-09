@@ -59,4 +59,9 @@ class Debt extends Model implements Attachmentable
     {
         return $this->morphMany(Attachment::class, 'attachmentable');
     }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }

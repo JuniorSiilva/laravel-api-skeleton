@@ -10,7 +10,7 @@ class DebtRepository extends Repository implements DebtRepositoryContract
 {
     protected $model = Debt::class;
 
-    public function getAll(bool $paginate = false, int $take = 15, string $search = '', string $from = '', string $to = '', array $debtors = [])
+    public function getAll(bool $paginate = false, int $take = 15, string $search = '', string $from = '', string $to = '', array $debtors = [], array $tags = [])
     {
         $query = $this->getQuery();
 
@@ -18,13 +18,19 @@ class DebtRepository extends Repository implements DebtRepositoryContract
 
         $query->whereFromToDate($from, $to, 'buy_date');
 
-        $query->when($debtors, function (Builder $query) use ($debtors) {
+        if ($debtors) {
             $query->whereHas('debtors', function (Builder $query) use ($debtors) {
                 $query->whereIn('id', $debtors);
             });
-        });
+        }
 
-        $query->with(['debtors']);
+        if ($tags) {
+            $query->whereHas('tags', function (Builder $query) use ($tags) {
+                $query->whereIn('id', $tags);
+            });
+        }
+
+        $query->with(['debtors', 'tags']);
 
         $query->withCount([
             'payments AS payments_completed' => function ($query) {

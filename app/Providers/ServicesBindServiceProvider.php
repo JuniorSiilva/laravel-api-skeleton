@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\PDFService;
+use App\Services\TagService;
 use App\Services\AuthService;
 use App\Services\CardService;
 use App\Services\DebtService;
@@ -14,6 +15,7 @@ use App\Services\ForgotPasswordService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\VerificationUserService;
 use App\Services\Contracts\PDFServiceContract;
+use App\Services\Contracts\TagServiceContract;
 use App\Services\Contracts\AuthServiceContract;
 use App\Services\Contracts\CardServiceContract;
 use App\Services\Contracts\DebtServiceContract;
@@ -37,6 +39,7 @@ class ServicesBindServiceProvider extends ServiceProvider
         AttachmentServiceContract::class => AttachmentService::class,
         PaymentServiceContract::class => PaymentService::class,
         PDFServiceContract::class => PDFService::class,
+        TagServiceContract::class => TagService::class,
     ];
 
     /**

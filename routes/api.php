@@ -37,6 +37,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', ['as' => 'find', 'uses' => 'CardController@find', 'middleware' => 'exists:cards|id|id|deleted_at']);
     });
 
+    Route::group(['prefix' => 'tags', 'as' => 'tags.'], function () {
+        Route::get('/', ['as' => 'get', 'uses' => 'TagController@get']);
+        Route::post('/', ['as' => 'create', 'uses' => 'TagController@create']);
+    });
+
     Route::group(['prefix' => 'debtors', 'as' => 'debtors.'], function () {
         Route::get('/', ['as' => 'get', 'uses' => 'DebtorController@get']);
         Route::post('/', ['as' => 'create', 'uses' => 'DebtorController@create']);
