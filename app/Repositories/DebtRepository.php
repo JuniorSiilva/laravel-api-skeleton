@@ -26,7 +26,7 @@ class DebtRepository extends Repository implements DebtRepositoryContract
 
         if ($tags) {
             $query->whereHas('tags', function (Builder $query) use ($tags) {
-                $query->whereIn('id', $tags);
+                $query->whereIn('tags.id', $tags);
             });
         }
 

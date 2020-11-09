@@ -43,6 +43,8 @@ class DebtService extends Service implements DebtServiceContract
 
             $debt->debtors()->sync(array_column($data['debtors'] ?? [], 'id'));
 
+            $debt->tags()->sync(array_column($data['tags'] ?? [], 'id'));
+
             $this->attachmentService->createMany($debt, $data['attachments'] ?? []);
         });
 

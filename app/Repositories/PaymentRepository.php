@@ -21,6 +21,8 @@ class PaymentRepository extends Repository implements PaymentRepositoryContract
 
         $query->whereFromToDate($from, $to, 'payment_date', 'DATE', 'CURRENT_MONTH');
 
+        $query->with('debt.tags');
+
         if (! empty($debtors)) {
             $query->whereIn('debtor_id', $debtors);
         }
@@ -30,8 +32,8 @@ class PaymentRepository extends Repository implements PaymentRepositoryContract
         }
 
         if ($tags) {
-            $query->whereHas('debtors.tags', function (Builder $query) use ($tags) {
-                $query->whereIn('id', $tags);
+            $query->whereHas('debt.tags', function (Builder $query) use ($tags) {
+                $query->whereIn('tags.id', $tags);
             });
         }
 

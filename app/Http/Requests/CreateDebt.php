@@ -23,6 +23,8 @@ class CreateDebt extends Request
             'card.id' => ['nullable', 'integer', 'exists:cards,id,owner_id,' . current_user_id()],
             'debtors' => ['required', 'array', 'min:1'],
             'debtors.*.id' => ['required', 'integer', 'exists:debtors,id,owner_id,' . current_user_id()],
+            'tags' => ['required', 'array', 'min:1'],
+            'tags.*.id' => ['required', 'integer', 'exists:tags,id,owner_id,' . current_user_id()],
             'attachments' => ['nullable', 'array'],
             'attachments.*.file' => ['required', 'file', 'mimes:' . AttachmentExtension::availableMimeTypes()],
             'attachments.*.description' => ['nullable', 'string', 'max:255'],

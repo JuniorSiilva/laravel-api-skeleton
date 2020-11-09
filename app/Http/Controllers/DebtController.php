@@ -28,8 +28,9 @@ class DebtController extends Controller
         $to = $request->inputOr('to', '');
         $debtors = $request->inputOr('debtors', []);
         $take = $request->inputOr('take', 10);
+        $tags = $request->inputOr('tags', []);
 
-        $debts = $this->debtRepository->getAll(true, $take, $search, $from, $to, $debtors);
+        $debts = $this->debtRepository->getAll(true, $take, $search, $from, $to, $debtors, $tags);
 
         return response($debts)->withResource(DebtResource::class);
     }

@@ -13,7 +13,7 @@ class DefaultListRequest extends Request
     {
         return [
             'search' => ['nullable', 'string'],
-            'take' => ['nullable', 'integer', 'min:5', 'max:100'],
+            'take' => ['nullable', 'integer', 'min:3', 'max:100'],
             'paginate' => ['nullable', 'boolean'],
             'from' => ['nullable', 'date', 'date_format:"Y-m-d"'],
             'to' => ['nullable', 'date', 'date_format:"Y-m-d"'],

@@ -20,6 +20,8 @@ class ListPayments extends Request
             'debtors' => ['nullable', 'array'],
             'debtors.*' => ['required', 'integer', 'exists:debtors,id'],
             'debt' => ['nullable', 'integer', 'exists:debtors,id'],
+            'tags' => ['nullable', 'array'],
+            'tags.*' => ['required', 'integer', 'exists:tags,id'],
         ]);
     }
 }
