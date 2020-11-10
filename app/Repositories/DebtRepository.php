@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Debt;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Repositories\Contracts\DebtRepositoryContract;
 
@@ -45,5 +46,22 @@ class DebtRepository extends Repository implements DebtRepositoryContract
         }
 
         return $query->get();
+    }
+
+    public function findById($id, bool $includeRelations = true, array $relations = []): ?Model
+    {
+        $query = $this->getQuery();
+
+        if ($includeRelations) {
+            $query->with(['tags', 'debtors', 'attachments', 'card']);
+
+            $query->withCount([
+                'payments AS payments_completed' => function ($query) {
+                    $query->payed();
+                },
+            ]);
+        }
+
+        return $query->find($id);
     }
 }

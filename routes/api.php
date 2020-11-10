@@ -52,11 +52,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'debts', 'as' => 'debts.'], function () {
         Route::get('/', ['as' => 'get', 'uses' => 'DebtController@get']);
         Route::post('/', ['as' => 'create', 'uses' => 'DebtController@create']);
+        Route::post('/{id}', ['as' => 'update', 'uses' => 'DebtController@update', 'middleware' => 'exists:debts|id|id|deleted_at']);
         Route::get('/{id}', ['as' => 'find', 'uses' => 'DebtController@find', 'middleware' => 'exists:debts|id|id|deleted_at']);
     });
 
     Route::group(['prefix' => 'payments', 'as' => 'payments.'], function () {
         Route::get('/', ['as' => 'get', 'uses' => 'PaymentController@get']);
         Route::get('/{id}', ['as' => 'find', 'uses' => 'PaymentController@find', 'middleware' => 'exists:payments|id|id|deleted_at']);
+        Route::post('/{id}/toggle', ['as' => 'toggle.payment', 'uses' => 'PaymentController@togglePayment', 'middleware' => 'exists:payments|id|id|deleted_at']);
+        Route::get('/debtors', ['as' => 'debtors', 'uses' => 'PaymentController@debtors']);
     });
 });

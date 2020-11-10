@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Response;
 use App\Http\Requests\ListDebts;
 use App\Http\Requests\CreateDebt;
+use App\Http\Requests\UpdateDebt;
 use App\Http\Resources\DebtResource;
 use App\Services\Contracts\DebtServiceContract;
 use App\Repositories\Contracts\DebtRepositoryContract;
@@ -40,6 +41,13 @@ class DebtController extends Controller
         $debt = $this->debtRepository->findById($id);
 
         return response($debt)->withResource(DebtResource::class);
+    }
+
+    public function update(UpdateDebt $request, int $id)
+    {
+        $debtId = $this->debtService->update($id, $request->validated());
+
+        return response(['id' => $debtId], Response::HTTP_CREATED);
     }
 
     public function create(CreateDebt $request)

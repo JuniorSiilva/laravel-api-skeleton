@@ -11,6 +11,8 @@ class Payment extends Model
 {
     use OwnerConfig, EloquentHelpers;
 
+    private $payEvent;
+
     protected $fillable = [
         'price',
         'installment',
@@ -24,14 +26,19 @@ class Payment extends Model
         'payment_date' => 'date',
     ];
 
+    protected $observables = [
+        'pay',
+        'unpay',
+    ];
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        return (bool) $this->payEvent ? $this->payEvent : $eventName;
+    }
+
     public function isPaid()
     {
         return (bool) $this->receipt_date;
-    }
-
-    public function setStatus(string $status)
-    {
-        $this->status = $status;
     }
 
     public function getInstallment()
@@ -53,9 +60,24 @@ class Payment extends Model
         return $this->price;
     }
 
-    public function setReceiptDate(?string $date)
+    public function pay()
     {
-        $this->receipt_date = $date;
+        $this->status = PaymentStatus::PAGO;
+        $this->receipt_date = date('Y-m-d');
+        $this->payEvent = 'pay';
+        $this->save();
+
+        $this->fireModelEvent($this->payEvent, false);
+    }
+
+    public function unpay()
+    {
+        $this->status = PaymentStatus::PENDENTE;
+        $this->receipt_date = null;
+        $this->payEvent = 'unpay';
+        $this->save();
+
+        $this->fireModelEvent($this->payEvent, false);
     }
 
     public function debtor()

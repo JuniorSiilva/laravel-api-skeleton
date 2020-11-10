@@ -18,6 +18,8 @@ abstract class Model extends Eloquent
 
     protected static $logOnlyDirty = true;
 
+    protected static $logAttributesToIgnore = ['created_at', 'updated_at', 'deleted_at'];
+
     public function getClass(): string
     {
         return __CLASS__;

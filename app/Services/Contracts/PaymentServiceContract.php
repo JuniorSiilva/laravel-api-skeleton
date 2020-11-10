@@ -8,7 +8,5 @@ interface PaymentServiceContract
 {
     public function create(Debt $debt, int $debtorId, float $totalValue);
 
-    public function pay(int $id);
-
-    public function unpay(int $id);
+    public function toggle(int $id);
 }

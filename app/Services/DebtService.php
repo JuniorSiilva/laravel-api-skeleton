@@ -35,17 +35,43 @@ class DebtService extends Service implements DebtServiceContract
 
             $debt->save();
 
-            $valuePerDebtor = $data['price'] / count($data['debtors']);
+            $debtorsId = array_column($data['debtors'] ?? [], 'id');
 
-            foreach ($data['debtors'] as $debtor) {
-                $this->paymentService->create($debt, $debtor['id'], $valuePerDebtor);
-            }
+            $this->createDebtorsPayments($debt, $debtorsId, $data['price']);
 
-            $debt->debtors()->sync(array_column($data['debtors'] ?? [], 'id'));
+            $debt->debtors()->sync($debtorsId);
 
             $debt->tags()->sync(array_column($data['tags'] ?? [], 'id'));
 
             $this->attachmentService->createMany($debt, $data['attachments'] ?? []);
+        });
+
+        return $debt->getKey();
+    }
+
+    private function createDebtorsPayments(Debt $debt, array $debtorsId, float $totalPrice)
+    {
+        $valuePerDebtor = $totalPrice / count($debtorsId);
+
+        foreach ($debtorsId as $debtorId) {
+            $this->paymentService->create($debt, $debtorId, $valuePerDebtor);
+        }
+    }
+
+    public function update(int $id, array $data)
+    {
+        $debt = $this->debtRepository->findById($id, false);
+
+        DB::transaction(function () use ($debt, $data) {
+            $debt->fill($data);
+
+            $debt->card()->associate($data['card']['id'] ?? null);
+
+            $debt->tags()->sync(array_column($data['tags'] ?? [], 'id'));
+
+            $this->attachmentService->createMany($debt, $data['attachments'] ?? []);
+
+            $debt->save();
         });
 
         return $debt->getKey();
